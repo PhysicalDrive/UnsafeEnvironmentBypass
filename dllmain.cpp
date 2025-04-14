@@ -15,11 +15,21 @@ __int64 __fastcall UnsafeEnvironment(__int64* a1, char a2, __int64 a3, char a4) 
 }
 
 DWORD WINAPI Main(LPVOID) {
+
+    AllocConsole();
+    FILE* fptr;
+    freopen_s(&fptr, "CONOUT$", "w+", stdout);
+
+    SetConsoleTitleA("UnsafeEnvironmentBypass");
+
     MH_Initialize();
 
     //9.41 offsets for now
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x175CEB0, UnsafeEnvironment, nullptr);
+    std::cout << "Successfully hooked UnsafeEnvironment";
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x1F19230, RequestExit, nullptr); // if this doesn't work then create issue on github
+    std::cout << "Successfully hooked RequestExit";
+    
 
     return 0;
 }
