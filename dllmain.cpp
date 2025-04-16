@@ -2,6 +2,9 @@
 #include "pch.h"
 #include "framework.h"
 
+//#define season941 // 9.41
+#define season45 //4.5
+
 #define CREATEHOOK(Address, Hook, Og) \
 MH_CreateHook((void*)(Address), Hook, (void**)(Og)); \
 MH_EnableHook((void*)(Address));
@@ -25,10 +28,20 @@ DWORD WINAPI Main(LPVOID) {
     MH_Initialize();
 
     //9.41 offsets for now
+#ifdef season941
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x175CEB0, UnsafeEnvironment, nullptr);
     std::cout << "Successfully hooked UnsafeEnvironment";
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x1F19230, RequestExit, nullptr); // if this doesn't work then create issue on github
     std::cout << "Successfully hooked RequestExit";
+#endif
+
+#ifdef season45 // pissed at 4.5 detecting ida so made this
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x10C8E40, UnsafeEnvironment, nullptr);
+    std::cout << "Successfully hooked UnsafeEnvironment";
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x1401E70, RequestExit, nullptr); // if this doesn't work then create issue on github
+    std::cout << "Successfully hooked RequestExit";
+#endif // season4 // pissed at 4.5 detecting ida so made this
+
     
 
     return 0;
