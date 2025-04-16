@@ -6,8 +6,7 @@
 #define season45 //4.5
 
 #define CREATEHOOK(Address, Hook, Og) \
-MH_CreateHook((void*)(Address), Hook, (void**)(Og)); \
-MH_EnableHook((void*)(Address));
+MH_CreateHook((void*)(Address), Hook, (void**)(Og));
 
 void __fastcall RequestExit(char a1) {
 
@@ -23,7 +22,7 @@ DWORD WINAPI Main(LPVOID) {
     FILE* fptr;
     freopen_s(&fptr, "CONOUT$", "w+", stdout);
 
-    SetConsoleTitleA("UnsafeEnvironmentBypass | zvi is still fat");
+    SetConsoleTitleA("UnsafeEnvironmentBypass");
 
     MH_Initialize();
 
@@ -35,14 +34,14 @@ DWORD WINAPI Main(LPVOID) {
     std::cout << "Successfully hooked RequestExit";
 #endif
 
-#ifdef season45 // pissed at 4.5 detecting ida so made this
+#ifdef season45 // pissed at 4.5 detecting ida so made this and worked like a charm
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x10C8E40, UnsafeEnvironment, nullptr);
     std::cout << "Successfully hooked UnsafeEnvironment";
-    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x1401E70, RequestExit, nullptr);
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x1401E70, RequestExit, nullptr); // if this doesn't work then create issue on github
     std::cout << "Successfully hooked RequestExit";
 #endif // season4 // pissed at 4.5 detecting ida so made this
 
-    
+    MH_EnableHook(MH_ALL_HOOKS);
 
     return 0;
 }
