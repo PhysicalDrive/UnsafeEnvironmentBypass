@@ -23,7 +23,7 @@ DWORD WINAPI Main(LPVOID) {
     FILE* fptr;
     freopen_s(&fptr, "CONOUT$", "w+", stdout);
 
-    SetConsoleTitleA("UnsafeEnvironmentBypass");
+    SetConsoleTitleA("UnsafeEnvironmentBypass | zvi is still fat");
 
     MH_Initialize();
 
