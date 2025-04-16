@@ -38,7 +38,7 @@ DWORD WINAPI Main(LPVOID) {
 #ifdef season45 // pissed at 4.5 detecting ida so made this
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x10C8E40, UnsafeEnvironment, nullptr);
     std::cout << "Successfully hooked UnsafeEnvironment";
-    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x1401E70, RequestExit, nullptr); // if this doesn't work then create issue on github
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x1401E70, RequestExit, nullptr);
     std::cout << "Successfully hooked RequestExit";
 #endif // season4 // pissed at 4.5 detecting ida so made this
 
